@@ -29,7 +29,7 @@ export const toggled = (todoId) => {
   };
 };
 
-export const colorselected = (todoId, color) => {
+export const colorSelected = (todoId, color) => {
   return {
     type: COLORSELECTED,
     payload: {

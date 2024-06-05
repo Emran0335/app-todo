@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Todo from "./Todo";
+import fetchTodos from "@/redux/thunk/fetchTodos";
 
 function TodoList() {
   const todos = useSelector((state) => state.todos);
@@ -8,7 +10,9 @@ function TodoList() {
   const filters = useSelector((state) => state.filters);
   console.log(filters);
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(fetchTodos);
+  }, [dispatch]);
   return (
     <div className="mt-2 text-gray-700 text-sm max-h-[300px] overflow-y-auto">
       {todos
@@ -31,9 +35,9 @@ function TodoList() {
             return true;
           }
         })
-        .map((todo) => {
-          <Todo todo={todo} key={todo.id} />;
-        })}
+        .map((todo) => (
+          <Todo todo={todo} key={todo.id} />
+        ))}
     </div>
   );
 }

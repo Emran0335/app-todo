@@ -9,12 +9,6 @@ import {
 } from "./actionTypes";
 import initialState from "./initialState";
 
-const nextTodoId = (todosArr) => {
-  const maxId = todosArr.reduce((maxId, todo) => Math.max(maxId, todo.id), -1);
-
-  return maxId + 1;
-};
-
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOADED:
@@ -24,7 +18,6 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         {
           text: action.payload,
-          id: nextTodoId(state),
           completed: false,
         },
       ];

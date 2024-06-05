@@ -1,35 +1,39 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import cancelImage from "@/public/images/cancel.png";
-import { toggled, colorselected, deleted } from "../redux/todos/actions";
+import Image from "next/image";
+import updateStatus from "@/redux/thunk/updateStatus";
+import updapteColor from "@/redux/thunk/updateColor";
 
 const Todo = ({ todo }) => {
+  console.log(todo.id);
   const { text, completed, color, id } = todo;
+  console.log(id);
   const dispatch = useDispatch();
 
-  const handleStatusChange = (todoId) => {
-    dispatch(toggled(todoId));
+  const handleStatusChange = (todoId, statusChange) => {
+    dispatch(updateStatus(todoId, statusChange));
   };
 
   const handleColorChange = (todoId, color) => {
-    dispatch(colorselected(todoId, color));
+    dispatch(updapteColor(todoId, color));
   };
 
   const handleDelete = (todoId) => {
-    dispatch(deleted(todoId));
+    dispatch(deleteTodo(todoId));
   };
 
   return (
     <div className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0">
       <div
-        className={`rounded-full bg-white border-2 border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
+        className={`relative rounded-full bg-white border-2 border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
           completed && "border-green-500 focus-within:border-green-500"
         }`}
       >
         <input
           type="checkbox"
           checked={completed}
-          onChange={() => handleStatusChange(id)}
+          onChange={() => handleStatusChange(id, completed)}
           className="opacity-0 absolute rounded-full"
         />
         {completed && (
@@ -62,7 +66,7 @@ const Todo = ({ todo }) => {
         }`}
         onClick={() => handleColorChange(id, "red")}
       ></div>
-      <img
+      <Image
         src={cancelImage}
         alt="cancel"
         className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"

@@ -22,9 +22,10 @@ export async function POST(req) {
     const createdTodo = await prisma.todo.create({
       data: {
         text,
+        completed: false,
       },
     });
-    console.log("creted todo", createdTodo);
+    console.log("created todo", createdTodo);
     return NextResponse.json(createdTodo);
   } catch (error) {
     console.log("Error creating: ", error);

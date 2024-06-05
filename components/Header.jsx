@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import tickImage from "@/public/images/double-tick.png";
 import noteImage from "@/public/images/notes.png";
 import plusImage from "@/public/images/plus.png";
+import addTodo from "@/redux/thunk/addTodo";
 
 import Image from "next/image";
 
@@ -14,15 +15,33 @@ export default function Header() {
   const handleInput = (e) => {
     setInput(e.target.value);
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(addTodo(input));
-    setInput("");
+    try {
+      const apiUrl = "/api/todos/create";
+      const requestedData = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      };
+      const response = await fetch(apiUrl, requestedData);
+      if (response.ok) {
+        dispatch(addTodo(input));
+        setInput("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <form className="flex items-center bg-gray-100 px-4 py-4 rounded-md" onSubmit={submitHandler}>
+      <form
+        className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
+        onSubmit={submitHandler}
+      >
         <Image src={noteImage} className="w-6 h-6" alt="Add todo" />
         <input
           type="text"
