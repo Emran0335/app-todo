@@ -1,21 +1,18 @@
-import prisma from "@/app/utils/connect";
+import prisma from "@/utils/connect.js";
 import { NextResponse } from "next/server";
 
-export async function PATCH(params) {
-  console.log(params.taskId);
+export async function PATCH(req, { params }) {
+  console.log(params);
   try {
-    if (!params.todoId) {
-      return NextResponse.json({ error: "Not Found!", status: 401 });
-    }
-
     const { completed } = await req.json();
+    console.log(completed);
 
-    const updateStatus = await prisma.task.update({
+    const updateStatus = await prisma.todo.update({
       where: {
         id: params.todoId,
       },
       data: {
-        completed,
+        completed: completed,
       },
     });
     return NextResponse.json(updateStatus);

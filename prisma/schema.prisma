@@ -8,8 +8,8 @@ generator client {
 }
 
 model Todo {
-    id        String  @id @default(auto()) @map("_id") @db.ObjectId
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
     text      String
-    completed Boolean @default(false)
-    color     String?
+    completed Boolean? @default(false)
+    color     String?  @default("")
 }

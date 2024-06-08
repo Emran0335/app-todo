@@ -10,9 +10,11 @@ function TodoList() {
   const filters = useSelector((state) => state.filters);
   console.log(filters);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchTodos);
+    dispatch(fetchTodos());
   }, [dispatch]);
+
   return (
     <div className="mt-2 text-gray-700 text-sm max-h-[300px] overflow-y-auto">
       {todos

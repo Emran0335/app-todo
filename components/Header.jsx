@@ -17,23 +17,8 @@ export default function Header() {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const apiUrl = "/api/todos/create";
-      const requestedData = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(input),
-      };
-      const response = await fetch(apiUrl, requestedData);
-      if (response.ok) {
-        dispatch(addTodo(input));
-        setInput("");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(addTodo(input));
+    setInput("");
   };
 
   return (

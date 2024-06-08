@@ -1,4 +1,4 @@
-import prisma from "@/app/utils/connect";
+import prisma from "@/utils/connect.js";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -22,7 +22,6 @@ export async function POST(req) {
     const createdTodo = await prisma.todo.create({
       data: {
         text,
-        completed: false,
       },
     });
     console.log("created todo", createdTodo);

@@ -23,7 +23,6 @@ const filterReducer = (state = initialState, action) => {
               (existingColor) => existingColor !== color
             ),
           };
-
         default:
           return state;
       }

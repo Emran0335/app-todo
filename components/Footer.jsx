@@ -1,4 +1,5 @@
 "use client";
+import { colorChanged, statusChanged } from "@/redux/filters/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const numberOfTodos = (no_of_todos) => {
@@ -14,11 +15,12 @@ const numberOfTodos = (no_of_todos) => {
 
 export default function Footer() {
   const todos = useSelector((state) => state.todos);
+  console.log(todos)
   const filters = useSelector((state) => state.filters);
-
+console.log(filters)
   const dispatch = useDispatch();
   const todosRemaining = todos.filter(
-    (todo) => !todo.completed === true
+    (todo) => !todo.completed
   ).length;
   const { status, colors } = filters;
 

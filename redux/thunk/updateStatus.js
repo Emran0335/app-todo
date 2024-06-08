@@ -1,8 +1,10 @@
+import toast from "react-hot-toast";
 import { toggled } from "../todos/actions";
 
 const updateStatus = (todoId, currentStatus) => {
+  console.log(currentStatus)
   return async (dispatch) => {
-    const response = await fetch(`/api/todos/status/${todoId}`, {
+    const response = await fetch(`/api/todos/${todoId}/status`, {
       method: "PATCH",
       body: JSON.stringify({
         completed: !currentStatus,
@@ -12,8 +14,9 @@ const updateStatus = (todoId, currentStatus) => {
       },
     });
     const todo = await response.json();
-
+    console.log(todo.id);
     dispatch(toggled(todo.id));
+    toast.success("status updated successfully");
   };
 };
 

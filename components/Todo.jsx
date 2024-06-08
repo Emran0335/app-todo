@@ -1,26 +1,30 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import cancelImage from "@/public/images/cancel.png";
 import Image from "next/image";
 import updateStatus from "@/redux/thunk/updateStatus";
 import updapteColor from "@/redux/thunk/updateColor";
+import deleteTodo from "@/redux/thunk/deleteTodo";
+import { useRouter } from "next/navigation";
 
 const Todo = ({ todo }) => {
-  console.log(todo.id);
   const { text, completed, color, id } = todo;
-  console.log(id);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleStatusChange = (todoId, statusChange) => {
     dispatch(updateStatus(todoId, statusChange));
+    router.refresh()
   };
-
   const handleColorChange = (todoId, color) => {
     dispatch(updapteColor(todoId, color));
+    router.refresh();
   };
-
+  
   const handleDelete = (todoId) => {
     dispatch(deleteTodo(todoId));
+    router.reload();
   };
 
   return (
@@ -33,6 +37,7 @@ const Todo = ({ todo }) => {
         <input
           type="checkbox"
           checked={completed}
+          name="checkox"
           onChange={() => handleStatusChange(id, completed)}
           className="opacity-0 absolute rounded-full"
         />

@@ -1,10 +1,10 @@
-import prisma from "@/app/utils/connect";
+import prisma from "@/utils/connect.js";
 import { NextResponse } from "next/server";
 
 export async function PUT(req, { params }) {
+  console.log(params.todoId)
   try {
     const { color } = await req.json();
-    console.log(color);
     const updapteColor = await prisma.todo.update({
       where: {
         id: params.todoId,
@@ -13,7 +13,6 @@ export async function PUT(req, { params }) {
         color: color,
       },
     });
-    console.log(updapteColor);
     return NextResponse.json(updapteColor);
   } catch (error) {
     console.log("Error updating: ", error);

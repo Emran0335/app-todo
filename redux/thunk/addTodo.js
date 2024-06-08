@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { added } from "../todos/actions";
 
 const addTodo = (todoText) => {
@@ -6,7 +7,6 @@ const addTodo = (todoText) => {
       method: "POST",
       body: JSON.stringify({
         text: todoText,
-        completed: false,
       }),
       headers: {
         "Content-type": "applicaton/json; charset=UTF-8",
@@ -14,6 +14,7 @@ const addTodo = (todoText) => {
     });
     const todo = await response.json();
     dispatch(added(todo.text));
+    toast.success("todo added successfully");
   };
 };
 

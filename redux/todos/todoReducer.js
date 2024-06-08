@@ -23,7 +23,7 @@ const todoReducer = (state = initialState, action) => {
       ];
     case TOGGLED:
       return state.map((todo) => {
-        if (todo.id !== action.playload) {
+        if (todo.id !== action.payload) {
           return todo;
         } else {
           return {
